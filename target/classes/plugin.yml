@@ -1,0 +1,8 @@
+name: AprilFools
+main: top.earthvillage.aprilfools.AprilFoolsPlugin
+version: 1.1
+commands:
+  愚人节快乐:
+    description: 获得愚人节特殊道具
+    usage: /愚人节快乐
+api-version: 1.20 # 这里指定了1.20版本的API
