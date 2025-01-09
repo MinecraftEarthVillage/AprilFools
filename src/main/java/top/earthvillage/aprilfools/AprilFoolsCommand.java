@@ -24,7 +24,7 @@ public class AprilFoolsCommand implements CommandExecutor {
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
         // 检查发送命令的是否是玩家
-        if (sender instanceof Player) {
+        if (sender instanceof Player && sender.isOp()) {
             Player player = (Player) sender;
 
             // 创建一个普通木棍物品
@@ -55,7 +55,7 @@ public class AprilFoolsCommand implements CommandExecutor {
 
             return true;
         } else {
-            sender.sendMessage("只有玩家可以使用该指令！");
+            sender.sendMessage("你在期待什么");
             return false;
         }
     }
