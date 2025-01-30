@@ -37,34 +37,33 @@ public class AprilFoolsPlugin extends JavaPlugin implements Listener {
     public void onPlayerInteractEntity(PlayerInteractEntityEvent event) {
         Player player = event.getPlayer();
         Entity clickedEntity = event.getRightClicked(); // 获取点击的实体
+        //判断主副手
+        if (event.getHand().equals(EquipmentSlot.HAND)) {
+            // 获取玩家手持物品的 ItemMeta
+            ItemStack itemInHand = player.getInventory().getItemInMainHand();
+            ItemMeta meta = itemInHand.getItemMeta();
 
-        // 获取玩家手持物品的 ItemMeta
-        ItemStack itemInHand = player.getInventory().getItemInMainHand();
-        ItemMeta meta = itemInHand.getItemMeta();
+            if (meta != null && meta.hasLore()) {
+                // 获取物品的 Lore
+                List<String> lore = meta.getLore();
 
-        if (meta != null && meta.hasLore()) {
-            // 获取物品的 Lore
-            List<String> lore = meta.getLore();
+                // 通过Lore来获取对应的指令组名
+                for (String loreGroup : this.getConfig().getKeys(false)) {
+                    if (this.getConfig().getStringList(loreGroup + ".lore").equals(lore)) {
+                        // 执行对应的指令
+                        if (clickedEntity instanceof Player) {
 
-            // 通过Lore来获取对应的指令组名
-            for (String loreGroup : this.getConfig().getKeys(false)) {
-                if (this.getConfig().getStringList(loreGroup + ".lore").equals(lore)) {
-                    // 执行对应的指令
-                    if (clickedEntity instanceof Player) {
-                        //判断主副手
-                        if (event.getHand().equals(EquipmentSlot.HAND)) {
                             Player target = (Player) clickedEntity;
                             AprilFoolsConfig.executeCommands(this, player, target, loreGroup);
+                        } else {
+                            // 如果点击的是非玩家实体
+                            player.sendMessage("这个不是玩家");
                         }
-                    } else {
-                        // 如果点击的是非玩家实体
-                        player.sendMessage("这个不是玩家");
+                        break;
                     }
-                    break;
                 }
             }
         }
     }
-
 
 }
