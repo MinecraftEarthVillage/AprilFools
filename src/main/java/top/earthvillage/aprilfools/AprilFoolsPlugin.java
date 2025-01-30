@@ -52,16 +52,15 @@ public class AprilFoolsPlugin extends JavaPlugin implements Listener {
                     if (clickedEntity instanceof Player) {
                         Player target = (Player) clickedEntity;
                         AprilFoolsConfig.executeCommands(this, player, target, loreGroup);
-                    }
-                    /*
-                    else {
-                        // 如果点击的是非玩家实体
-                        sender.sendMessage("这个不是玩家");
+                        break;
                     }
 
-                     */
-                    break;
+                    else {
+                        // 如果点击的是非玩家实体
+                        player.sendMessage("这个不是玩家");
+                    }
                 }
+                break;
             }
         }
     }
