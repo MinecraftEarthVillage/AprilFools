@@ -9,6 +9,7 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.event.player.PlayerInteractEntityEvent;
+import org.bukkit.inventory.EquipmentSlot;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -50,17 +51,17 @@ public class AprilFoolsPlugin extends JavaPlugin implements Listener {
                 if (this.getConfig().getStringList(loreGroup + ".lore").equals(lore)) {
                     // 执行对应的指令
                     if (clickedEntity instanceof Player) {
-                        Player target = (Player) clickedEntity;
-                        AprilFoolsConfig.executeCommands(this, player, target, loreGroup);
-                        break;
-                    }
-
-                    else {
+                        //判断主副手
+                        if (event.getHand().equals(EquipmentSlot.HAND)) {
+                            Player target = (Player) clickedEntity;
+                            AprilFoolsConfig.executeCommands(this, player, target, loreGroup);
+                        }
+                    } else {
                         // 如果点击的是非玩家实体
                         player.sendMessage("这个不是玩家");
                     }
+                    break;
                 }
-                break;
             }
         }
     }
