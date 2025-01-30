@@ -45,17 +45,26 @@ public class AprilFoolsPlugin extends JavaPlugin implements Listener {
             // 获取物品的 Lore
             List<String> lore = meta.getLore();
 
-            // 检查物品的 Lore 是否包含特定的标识，例如 "愚人节棒子"
-            if (lore.contains("愚人节快乐！")) {
-                // 如果点击的是玩家，执行对应指令
-                if (clickedEntity instanceof Player) {
-                    Player target = (Player) clickedEntity;
-                    AprilFoolsConfig.executeCommands(this, player, target);
-                } else {
-                    // 如果点击的是非玩家实体，执行自己触发的指令
-                    AprilFoolsConfig.executeCommands(this, player, player);
+            // 通过Lore来获取对应的指令组名
+            for (String loreGroup : this.getConfig().getKeys(false)) {
+                if (this.getConfig().getStringList(loreGroup + ".lore").equals(lore)) {
+                    // 执行对应的指令
+                    if (clickedEntity instanceof Player) {
+                        Player target = (Player) clickedEntity;
+                        AprilFoolsConfig.executeCommands(this, player, target, loreGroup);
+                    }
+                    /*
+                    else {
+                        // 如果点击的是非玩家实体
+                        sender.sendMessage("这个不是玩家");
+                    }
+
+                     */
+                    break;
                 }
             }
         }
     }
+
+
 }

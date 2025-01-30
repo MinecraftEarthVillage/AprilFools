@@ -1,17 +1,21 @@
 package top.earthvillage.aprilfools;
 
-
-
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 
 import java.util.List;
+import java.util.Map;
 
 public class AprilFoolsConfig {
 
-    public static void executeCommands(AprilFoolsPlugin plugin, Player executor, Player target) {
+    public static void executeCommands(AprilFoolsPlugin plugin, Player executor, Player target, String loreGroup) {
         // 获取配置文件中的指令列表
-        List<String> commands = plugin.getConfig().getStringList("commands");
+        List<String> commands = (List<String>) plugin.getConfig().getList(loreGroup + ".commands");
+
+        if (commands == null) {
+            executor.sendMessage("未找到与此Lore组相关的指令！");
+            return;
+        }
 
         for (String command : commands) {
             // 替换变量
@@ -29,5 +33,11 @@ public class AprilFoolsConfig {
                 Bukkit.dispatchCommand(Bukkit.getConsoleSender(), command);
             }
         }
+    }
+
+    // 保存 Lore 和对应的指令
+    public static void saveLoreCommands(AprilFoolsPlugin plugin, String loreGroup, List<String> commands) {
+        plugin.getConfig().set(loreGroup + ".commands", commands);
+        plugin.saveConfig();
     }
 }

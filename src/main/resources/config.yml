@@ -3,11 +3,20 @@
 #   %玩家% ——被捉弄者
 #  %当前拿着道具的人% ——捉弄者
 #  %所有人% ——所有人
-commands:
-  - "say %当前拿着道具的人% 用愚人节的棒子愚弄了 %玩家%！"
-  - "tell %玩家% 你被 %当前拿着道具的人% 愚弄了！愚人节快乐！"
-  - "effect give %玩家% minecraft:slowness 5 1"
-  - "effect give %玩家% minecraft:glowing 1 1"
-  - "say %当前拿着道具的人% 给所有人带来了愚人节的快乐！"
-  - "tell %所有人% 大家注意了，%当前拿着道具的人% 正在愚弄所有人！"
-  - "say %当前拿着道具的人% 愚弄了 %玩家% ，但是实际是愚弄了自己！"
+第一组:  # 这个是配置的 Lore 组名
+  lore:
+    - "第一组"  # 第一组对应的Lore内容
+  commands:
+    - "say %当前拿着道具的人% 用愚人节的棒子愚弄了 %玩家%！"
+    - "tell %玩家% 你被 %当前拿着道具的人% 愚弄了！愚人节快乐！"
+    - "effect give %玩家% minecraft:slowness 5 1"
+    - "effect give %玩家% minecraft:glowing 1 1"
+
+第二组:
+  lore:
+    - "第二组"
+  commands:
+    - "say %当前拿着道具的人% 用愚人节棒子愚弄了 %玩家%（第二组）！"
+    - "tell %玩家% 你被 %当前拿着道具的人% 愚弄了！（第二组）"
+    - "effect give %玩家% minecraft:blindness 5 1"
+    - "effect give %玩家% minecraft:levitation 1 1"
